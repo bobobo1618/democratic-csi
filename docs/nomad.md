@@ -28,6 +28,9 @@ job "storage-controller" {
 
     task "controller" {
       driver = "docker"
+      env {
+        CSI_NODE_ID="${attr.unique.hostname}"
+      }
 
       config {
         image = "democraticcsi/democratic-csi:latest"
@@ -80,6 +83,10 @@ job "storage-node" {
   group "node" {
     task "node" {
       driver = "docker"
+
+      env {
+        CSI_NODE_ID="${attr.unique.hostname}"
+      }
 
       config {
         image = "democraticcsi/democratic-csi:latest"
